@@ -1,0 +1,67 @@
+name: Update references.html from journals.bib
+
+on:
+  push:
+    paths:
+      - journals.bib
+
+jobs:
+  update-references:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # allow committing back to the repo
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Set up Python and install manubot
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Cache Pandoc installer
+      id: pandoc-cache
+      uses: actions/cache@v4
+      with:
+        path: pandoc-3.7.0.2-1-amd64.deb
+        key: pandoc-3.7.0.2-deb
+
+    - name: Download Pandoc installer (if not cached)
+      if: steps.pandoc-cache.outputs.cache-hit != 'true'
+      run: curl -LO https://github.com/jgm/pandoc/releases/download/3.7.0.2/pandoc-3.7.0.2-1-amd64.deb
+
+    - name: Install Pandoc
+      run: sudo dpkg -i pandoc-3.7.0.2-1-amd64.deb
+
+    - name: Prepare markdown template
+      run: |
+        cat > template.md << 'EOF'
+        ---
+        bibliography: journals.bib
+        csl: apa.csl
+        nocite: '@*'
+        ---
+        
+        # Journal Articles
+        EOF
+
+    - name: Generate references.html
+      run: pandoc template.md --citeproc -o references.html
+      
+    - name: Commit and push references.json
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add references.html
+        git diff --cached --quiet || git commit -m "Update references.html from journals.bib"
+        git push
