@@ -43,6 +43,9 @@ jobs:
     - name: Install Pandoc
       run: sudo dpkg -i pandoc-3.7.0.2-1-amd64.deb
 
+    - name: Download APA style
+      run: curl -o apa.csl https://raw.githubusercontent.com/citation-style-language/styles/master/apa-6th-edition.csl
+
     - name: Prepare markdown template
       run: |
         cat > template.md << 'EOF'
