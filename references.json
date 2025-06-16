@@ -3510,7 +3510,7 @@
     "note": "Loaded from an external bibliography file by Manubot.\nsource_bibliography: journals.bib\nstandard_id: Lashgari2022a"
   },
   {
-    "DOI": "\"https://doi: 10.1109/TMRB.2022.3147605\"",
+    "DOI": "10.1109/TMRB.2022.3147605",
     "author": [
       {
         "family": "Luo",
@@ -4286,7 +4286,7 @@
     "note": "Loaded from an external bibliography file by Manubot.\nsource_bibliography: journals.bib\nstandard_id: Nadarajah2021a"
   },
   {
-    "DOI": "\"https://doi.org/10.1093/ehjqcco/qcab094\"",
+    "DOI": "10.1093/ehjqcco/qcab094",
     "author": [
       {
         "family": "Nadarajah",
