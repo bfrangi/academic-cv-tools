@@ -93,7 +93,7 @@ jobs:
 
       - name: Commit and push to GitHub Pages
         run: | # Adapt destination paths as needed
-          [ -f assets/_bibliography/publications.bib ] && git add _bibliography/publications.bib
+          [ -f _bibliography/publications.bib ] && git add _bibliography/publications.bib
           [ -f assets/funding.json ] && git add assets/json/funding.json
           [ -f assets/resume.json ] && git add assets/json/resume.json
           [ -f assets/alumni.json ] && git add assets/json/alumni.json
