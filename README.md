@@ -21,9 +21,6 @@ Files processed include:
 - `bib/reports.bib`
 - `bib/supervision.bib`
 
-The tool is meant to be run inside a GitHub Action on the
-`academic-cv` repository. More details below.
-
 ## Setup
 
 ```bash
@@ -48,15 +45,15 @@ something like:
 {
     "bibliography": [
         {
-            "file": "pub_journals.bib",
+            "file": "journals.bib",
             "category": "journals"
         },
         {
-            "file": "pub_books.bib",
+            "file": "books.bib",
             "category": "books"
         },
         {
-            "file": "pub_inbooks.bib",
+            "file": "inbooks.bib",
             "category": "chapters"
         }
     ],
@@ -99,21 +96,22 @@ category later on.
 
 ## GitHub Action
 
-You can use this tool in a GitHub Action to automatically
-process the files and generate the output. [Here](./update-academic-pages.yaml) is an example
+You can use this tool in a GitHub Action on the LaTeX 
+repo to automatically process the files and generate the 
+output. [Here](./update-academic-pages.yaml) is an example
 of a GitHub Action workflow file that does this.
 
 For this to work, you need to set the following
 [GitHub secrets](https://docs.github.com/en/actions/how-tos/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository)
-in your repository:
+in your LaTeX repository:
 - `PAT`: A personal access token with write access to the GitHub Pages repository.
 
 You will also need to set the following
-[GitHub variables](https://docs.github.com/en/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables#creating-configuration-variables-for-a-repository)
-in your repository:
+[GitHub variables](https://docs.github.com/en/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables#creating-configuration-variables-for-a-repository):
 - `GIT_NAME`: Your GitHub username (if not set, defaults to "CV Auto Bot").
 - `GIT_EMAIL`: Your GitHub email address (if not set, defaults to the Actions Bot email).
 - `PAGES_REPO`: The name of the GitHub Pages repository in the format `<username>/<repo-name>`. This variable is mandatory for the action to work.
 
-You will also need to make sure your LaTeX repo has the `config.json` and the `basics.json`
-(this last one is optional) files stored in its root directory.
+And you will need to make sure your LaTeX repo has the `config.json` and 
+the `basics.json` (this last one is optional) files stored in its root 
+directory.
