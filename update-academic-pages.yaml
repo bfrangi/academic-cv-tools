@@ -82,7 +82,7 @@ jobs:
           chmod +x compile.sh
           ./compile.sh
         working-directory: academic-pages/academic-cv-tools
-      
+
       - name: Move output to GitHub Pages repo
         run: | # Adapt destination paths as needed
           [ -f output/publications.bib ] && mv output/publications.bib ../_bibliography/publications.bib
@@ -94,9 +94,9 @@ jobs:
       - name: Commit and push to GitHub Pages
         run: | # Adapt destination paths as needed
           [ -f _bibliography/publications.bib ] && git add _bibliography/publications.bib
-          [ -f assets/funding.json ] && git add assets/json/funding.json
-          [ -f assets/resume.json ] && git add assets/json/resume.json
-          [ -f assets/alumni.json ] && git add assets/json/alumni.json
+          [ -f assets/json/funding.json ] && git add assets/json/funding.json
+          [ -f assets/json/resume.json ] && git add assets/json/resume.json
+          [ -f assets/json/alumni.json ] && git add assets/json/alumni.json
           git diff --cached --quiet && echo "✅ No changes to commit." || git commit -m "Update CV [auto]"
           git push origin master
         working-directory: academic-pages
