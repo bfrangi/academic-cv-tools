@@ -23,6 +23,10 @@ for entry in json_bib:
 
     entry["date"] = date
 
+    if "," in entry["author"]:
+        surname, given_name = entry["author"].split(",", 1)
+        entry["author"] = f"{given_name.strip()} {surname.strip()}"
+
     if "address" in entry:
         if "location" not in entry:
             entry["location"] = entry["address"]

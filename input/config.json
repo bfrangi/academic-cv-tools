@@ -1,15 +1,15 @@
 {
     "bibliography": [
         {
-            "file": "pub_journals.bib",
+            "file": "journals.bib",
             "category": "journals"
         },
         {
-            "file": "pub_books.bib",
+            "file": "books.bib",
             "category": "books"
         },
         {
-            "file": "pub_inbooks.bib",
+            "file": "inbooks.bib",
             "category": "chapters"
         }
     ],
@@ -18,5 +18,5 @@
     "scholarships_and_fellowships": "fellowships.tex",
     "funding": "funding.tex",
     "awards": "honors.tex",
-    "alumni": "pub_supervision.bib"
+    "alumni": "supervision.bib"
 }
