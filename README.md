@@ -112,6 +112,7 @@ You will also need to set the following
 - `GIT_EMAIL`: Your GitHub email address (if not set, defaults to the Actions Bot email).
 - `PAGES_REPO`: The name of the GitHub Pages repository in the format `<username>/<repo-name>`. This variable is mandatory for the action to work.
 
-And you will need to make sure your LaTeX repo has the `config.json` and 
-the `basics.json` (this last one is optional) files stored in its root 
-directory.
+And you will need to make sure your LaTeX repo has the 
+[`config.json`](./input/config.json) and the 
+[`basics.json`](./input/basics.json) (this last one is optional) 
+files stored in its root directory.
