@@ -13,13 +13,13 @@ Files processed include:
 - `resume/fellowships.tex`
 - `resume/funding.tex`
 - `resume/honors.tex`
-- `bib/pub_books.bib`
-- `bib/pub_inbooks.bib`
-- `bib/pub_journals.bib`
-- `bib/pub_outreach.bib`
-- `bib/pub_patents.bib`
-- `bib/pub_reports.bib`
-- `bib/pub_supervision.bib`
+- `bib/books.bib`
+- `bib/inbooks.bib`
+- `bib/journals.bib`
+- `bib/outreach.bib`
+- `bib/patents.bib`
+- `bib/reports.bib`
+- `bib/supervision.bib`
 
 The tool is meant to be run inside a GitHub Action on the
 `academic-cv` repository. More details below.
