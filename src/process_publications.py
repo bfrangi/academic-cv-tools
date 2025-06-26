@@ -68,6 +68,10 @@ for file_path, category in zip(file_paths, categories):
 
 joined_bibtex_path = f"{output_dir()}/publications.bib"
 
+# Exit if no files were processed
+if not processed_files:
+    exit(0)
+
 # Join all bibtex files into a single file
 with open(joined_bibtex_path, "w") as all_bibtex_file:
     for processed_file in processed_files:

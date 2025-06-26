@@ -8,6 +8,9 @@ def read_bib_config(config_path: str) -> tuple[list[str], list[str]]:
     with open(config_path, "r") as file:
         config = json.load(file)
 
+    if "bibliography" not in config:
+        return [], []
+
     input_directory = input_dir()
     data = {
         f"{input_directory}/{source['file']}": source["category"]
@@ -24,6 +27,9 @@ def read_cv_config(config_path: str, section: str) -> tuple[str, str]:
 
     with open(config_path, "r") as file:
         config = json.load(file)
+
+    if section not in config:
+        exit()
 
     input_file = config[section]
     output_file = input_file.replace(".tex", ".json")
