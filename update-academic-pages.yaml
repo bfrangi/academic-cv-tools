@@ -1,0 +1,101 @@
+name: Update GitHub Pages
+
+on:
+  push:
+    paths:
+      - 'resume/education.tex'
+      - 'resume/experience.tex'
+      - 'resume/fellowships.tex'
+      - 'resume/funding.tex'
+      - 'resume/honors.tex' #      Change these to the files 
+      - 'bib/books.bib' #   from your LaTeX repo that
+      - 'bib/inbooks.bib' # you want to trigger the action
+      - 'bib/journals.bib'
+      - 'bib/outreach.bib'
+      - 'bib/patents.bib'
+      - 'bib/reports.bib'
+      - 'bib/supervision.bib'
+      - 'config.json'
+
+jobs:
+  update-site:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ensure required variables are set
+        run: |
+            if [ -z "${{ vars.PAGES_REPO }}" ]; then
+              echo "❌ Required repository variable PAGES_REPO is not set."
+              exit 1
+            fi
+
+      - name: Checkout academic-cv repo
+        uses: actions/checkout@v3
+        
+      - name: Clone GitHub Pages repo
+        run: |
+          git config --global user.name "${{ vars.GIT_NAME || 'CV Auto Bot' }}"
+          git config --global user.email "${{ vars.GIT_EMAIL || '41898282+github-actions[bot]@users.noreply.github.com' }}"
+          git clone https://x-access-token:${{ secrets.PAT }}@github.com/${{ vars.PAGES_REPO }}.git academic-pages
+      
+      - name: Clone academic-cv-tools repo
+        run: |
+          git clone https://github.com/bfrangi/academic-cv-tools.git academic-cv-tools
+        working-directory: academic-pages
+
+      - name: Copy config.json into academic-cv-tools
+        run: |
+          if [ ! -f config.json ]; then
+            echo "❌ config.json not found in the LaTeX repo's root directory."
+            exit 1
+          fi
+          cp config.json academic-pages/academic-cv-tools/input/config.json
+
+      - name: Copy basics.json into academic-cv-tools if it exists
+        run: |
+          if [ ! -f basics.json ]; then
+            echo "basics.json not found, skipping copy."
+          else
+            cp basics.json academic-pages/academic-cv-tools/input/basics.json
+          fi
+
+      - name: Copy input files into academic-cv-tools
+        run: | # Adapt source paths as needed
+          mkdir -p academic-pages/academic-cv-tools/input
+          mkdir -p academic-pages/academic-cv-tools/output
+          cp resume/*.tex academic-pages/academic-cv-tools/input/
+          cp bib/*.bib academic-pages/academic-cv-tools/input/
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install Python dependencies
+        run: |
+          pip install -r requirements.txt
+        working-directory: academic-pages/academic-cv-tools
+
+      - name: Compile GitHub Pages data
+        run: |
+          chmod +x compile.sh
+          ./compile.sh
+        working-directory: academic-pages/academic-cv-tools
+      
+      - name: Move output to GitHub Pages repo
+        run: | # Adapt destination paths as needed
+          [ -f output/publications.bib ] && mv output/publications.bib ../_bibliography/publications.bib
+          [ -f output/funding.json ] && mv output/funding.json ../assets/json/funding.json
+          [ -f output/resume.json ] && mv output/resume.json ../assets/json/resume.json
+          [ -f output/alumni.json ] && mv output/alumni.json ../assets/json/alumni.json
+        working-directory: academic-pages/academic-cv-tools
+
+      - name: Commit and push to GitHub Pages
+        run: | # Adapt destination paths as needed
+          [ -f assets/_bibliography/publications.bib ] && git add _bibliography/publications.bib
+          [ -f assets/funding.json ] && git add assets/json/funding.json
+          [ -f assets/resume.json ] && git add assets/json/resume.json
+          [ -f assets/alumni.json ] && git add assets/json/alumni.json
+          git diff --cached --quiet && echo "✅ No changes to commit." || git commit -m "Update CV [auto]"
+          git push origin master
+        working-directory: academic-pages
