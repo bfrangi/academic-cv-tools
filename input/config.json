@@ -1,0 +1,22 @@
+{
+    "bibliography": [
+        {
+            "file": "pub_journals.bib",
+            "category": "journals"
+        },
+        {
+            "file": "pub_books.bib",
+            "category": "books"
+        },
+        {
+            "file": "pub_inbooks.bib",
+            "category": "chapters"
+        }
+    ],
+    "education": "education.tex",
+    "experience": "experience.tex",
+    "scholarships_and_fellowships": "fellowships.tex",
+    "funding": "funding.tex",
+    "awards": "honors.tex",
+    "alumni": "pub_supervision.bib"
+}
