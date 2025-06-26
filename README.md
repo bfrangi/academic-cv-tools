@@ -3,7 +3,7 @@
 This is a small python module to parse `.tex` and `.bib` files
 from the `academic-cv` LaTeX template and output the `json` data 
 used to generate some of the pages in 
-[Prof A Frangi's GitHub Pages](affrangi.github.io) site. 
+[Prof A Frangi's GitHub Pages](https://affrangi.github.io) site. 
 
 ## Setup
 
