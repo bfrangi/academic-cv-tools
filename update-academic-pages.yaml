@@ -16,6 +16,7 @@ on:
       - 'bib/reports.bib'
       - 'bib/supervision.bib'
       - 'config.json'
+      - 'basics.json'
 
 jobs:
   update-site:
