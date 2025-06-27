@@ -62,7 +62,7 @@ something like:
     "scholarships_and_fellowships": "fellowships.tex",
     "funding": "funding.tex",
     "awards": "honors.tex",
-    "alumni": "pub_supervision.bib"
+    "alumni": "supervision.bib"
 }
 ```
 
